@@ -1,34 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chkCompatibility</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style/style.css">
 </head>
-
 <body>
-    <header>
-        <h1>chkCompatibility</h1>
-    </header>
-    <div>
-        <section id="catalogo">
-            <h2>Ir al catalogo</h2>
-            <button onclick="location.href='vistas/catalogo.html'">Ver Catálogo</button>
-        </section>
-        <section>
-            <h2>Quienes somos?</h2>
-            <p>Somos alumnos de la carrera de Analista de Sistemas de Informacion del Colegio Universitario IES</p>
-            <p>Este es un proyecto nuestro llamado chkCompatibility, una pagina para comprobar que los componentes que eliges para armar tu computadora</p>
-            <p>sean compatibles entre si, para evitar problemas al comprar o armar tu computadora</p>
-        </section>
-        <section>
-            <h2>Nuestro objetivo</h2>
-            <p>Nuestro objetivo es crear una pagina la cual permita a la gente evitar problemas como componentes que no son compatibles entre si,</p>
-            <p>que los componentes sean muy justos entre si, y que no haga falta pedir devoluciones por problemas de espacio o compatibilidad.</p>
-            <p>Asi logramos que la experiencia de armar tu propia computadora sea lo menos estresante posible</p>
-        </section>
-    </div>
-</body>
 
+    <header>
+        <div class="logo"><span>chk</span>Compatibility</div>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="vistas/catalogo.html">Catálogo</a>
+            <a href="#">Nosotros</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-badge">Proyecto IES &mdash; Analista en Sistemas</div>
+        <h1><span class="chk">chk</span>Compatibility</h1>
+        <p>Verificá la compatibilidad de los componentes de tu PC antes de comprarlos. Sin sorpresas, sin devoluciones.</p>
+        <a class="hero-btn" href="vistas/catalogo.html">Ver Catálogo &rarr;</a>
+    </div>
+
+    <main>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value">100%</span>
+                <span class="stat-label">Gratis</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-value">Sin registro</span>
+                <span class="stat-label">Usalo ahora mismo</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-value">Proyecto académico</span>
+                <span class="stat-label">IES &mdash; Colegio Universitario</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <span class="tag">&#x2713; activo</span>
+            <h2>¿Quiénes somos?</h2>
+            <p>Somos alumnos de la carrera de Analista de Sistemas de Información del Colegio Universitario IES.</p>
+            <p>chkCompatibility es nuestro proyecto final: una herramienta para verificar que los componentes que elegís para armar tu PC sean compatibles entre sí.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h2>Nuestro objetivo</h2>
+            <p>Evitarte problemas: componentes incompatibles, medidas que no encajan, o presupuesto mal aprovechado.</p>
+            <p>Queremos que la experiencia de armar tu propia computadora sea lo menos estresante posible, con información clara antes de comprar.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        Hecho con cuidado por estudiantes de <span>IES</span> &mdash; 2024
+    </footer>
+
+</body>
 </html>

@@ -1,19 +1,20 @@
-console.log("server nuevo cargado");
-const express = require("express");
+import express from 'express'
 
-const app = express();
-const PORT = 3000;
+//definicion del puerto
+const puerto = 3000;
 
-app.use(express.json());
+//instancia de server express
+const app = express()
 
 const componentes = [
     { id: 1, nombre: "Ryzen 7 5800X", tipo: "CPU" },
     { id: 2, nombre: "RTX 3060", tipo: "GPU" },
     { id: 3, nombre: "ASUS B550M", tipo: "Motherboard" },
     { id: 4, nombre: "Gabinete ATX", tipo: "Gabinete" }
-];
+]
 
-    app.get("/componentes", (req, res) => {
+//Get en /componentes
+app.get('/componentes', (req, res) => {
     const tipo = req.query.tipo;
 
     if (tipo !== undefined) {
@@ -23,19 +24,23 @@ const componentes = [
 
         return res.json(filtrados);
     }
-
+    res.status(200)
     return res.json(componentes);
-});
+})
 
-app.post("/componentes", (req, res) => {
+//Post en /componentes
+app.post('/componentes', (req, res) => {
     const { nombre, tipo } = req.body;
 
     if (!nombre || !tipo) {
         return res.status(400).json({ error: "Faltan datos" });
     }
 
+    const maxId = componentes.reduce((max, c) => Math.max(max, c.id), 0);
+
+
     const nuevoComponente = {
-        id: componentes.length + 1,
+        id: maxId + 1,
         nombre: nombre,
         tipo: tipo
     };
@@ -43,10 +48,15 @@ app.post("/componentes", (req, res) => {
     componentes.push(nuevoComponente);
 
     return res.status(201).json(nuevoComponente);
-});
+})
 
+//Delete en /componentes
 app.delete('/componentes/:id', (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id, 10);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+    }
 
     const index = componentes.findIndex(c => c.id === id);
 
@@ -57,11 +67,21 @@ app.delete('/componentes/:id', (req, res) => {
     const eliminado = componentes.splice(index, 1);
 
     return res.json(eliminado[0]);
-});
+})
 
+//Put en /componentes
 app.put("/componentes/:id", (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id, 10);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+    }
+
     const { nombre, tipo } = req.body;
+
+    if (!nombre || !tipo) {
+        return res.status(400).json({ error: "Faltan datos" });
+    }
 
     const index = componentes.findIndex(c => c.id === id);
 
@@ -69,12 +89,11 @@ app.put("/componentes/:id", (req, res) => {
         return res.status(404).json({ error: "Componente no encontrado" });
     }
 
-    componentes[index].nombre = nombre;
-    componentes[index].tipo = tipo;
+    componentes[index] = { ...componentes[index], nombre, tipo };
 
     return res.json(componentes[index]);
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+app.listen(puerto, () => {
+    console.log(`http://localhost:${puerto}`)
+})

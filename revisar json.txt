@@ -1,0 +1,18 @@
+//Revisar que onda porque esta diferente al de las clases
+//Revisar tambien en que carpeta tendria que estar los .json que crea al instalar node
+/*  Ejemplo de como es el de clases
+{
+  "name": "clase-230426",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.mjs",
+    "start": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
+*/

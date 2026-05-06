@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chkCompatibility — Catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/catalogo.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo"><span>chk</span>Compatibility</div>
+    <nav>
+      <a href="../index.html">Inicio</a>
+      <a href="#" class="nav-active">Catálogo</a>
+      <a href="#">Nosotros</a>
+    </nav>
+  </header>
+
+  <div class="catalogo-layout">
+
+    <!-- Columna principal: lista de componentes -->
+    <main class="catalogo-main">
+      <div class="catalogo-header">
+        <div>
+          <div class="catalogo-badge">Catálogo</div>
+          <h1 class="catalogo-title">Componentes disponibles</h1>
+        </div>
+        <div class="catalogo-count">
+          <span id="total-componentes">—</span>
+          <span class="catalogo-count-label">componentes</span>
+        </div>
+      </div>
+
+      <div id="lista-componentes"></div>
+    </main>
+
+    <!-- Sidebar: seleccionados -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Mi selección</span>
+        <span class="sidebar-badge" id="cantidad-seleccionados">0</span>
+      </div>
+
+      <ul id="lista-seleccionados"></ul>
+
+      <p id="mensaje-vacio" class="sidebar-empty">
+        Ningún componente seleccionado todavía.
+      </p>
+
+      <a class="sidebar-check" href="listComp.html">
+        Verificar compatibilidad →
+      </a>
+
+      <button class="sidebar-clear" id="btn-limpiar" style="display:none">
+        Limpiar todo
+      </button>
+    </aside>
+
+  </div>
+
+  <script src="../scripts/catalogo.mjs"></script>
+</body>
+
+</html>

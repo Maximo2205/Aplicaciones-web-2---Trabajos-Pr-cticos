@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chkCompatibility — Compatibilidad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/listComp.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo"><span>chk</span>Compatibility</div>
+    <nav>
+      <a href="../index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+      <a href="#" class="nav-active">Compatibilidad</a>
+    </nav>
+  </header>
+
+  <div class="compat-layout">
+
+    <!-- Resumen -->
+    <div class="compat-summary" id="compat-summary">
+      <div class="summary-estado" id="summary-estado">
+        <span class="summary-icon" id="summary-icon">—</span>
+        <div>
+          <div class="summary-titulo" id="summary-titulo">Analizando...</div>
+          <div class="summary-subtitulo" id="summary-subtitulo">Cargando componentes seleccionados</div>
+        </div>
+      </div>
+      <div class="summary-stats">
+        <div class="stat-pill">
+          <span id="count-ok">—</span>
+          <span class="stat-pill-label">compatibles</span>
+        </div>
+        <div class="stat-pill stat-pill-error">
+          <span id="count-error">—</span>
+          <span class="stat-pill-label">incompatibles</span>
+        </div>
+        <div class="stat-pill stat-pill-warn">
+          <span id="count-warn">—</span>
+          <span class="stat-pill-label">avisos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Componentes seleccionados -->
+    <div class="compat-section">
+      <div class="section-label">Componentes en análisis</div>
+      <div id="chips-componentes" class="chips-row"></div>
+    </div>
+
+    <!-- Tabla de compatibilidad -->
+    <div class="compat-section">
+      <div class="section-label">Resultados</div>
+      <div class="tabla-wrapper">
+        <table class="tabla-compat" id="tabla-compat">
+          <thead>
+            <tr>
+              <th>Componente A</th>
+              <th>Componente B</th>
+              <th>Característica</th>
+              <th>Valor A</th>
+              <th>Valor B</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-body"></tbody>
+        </table>
+        <div id="tabla-empty" class="tabla-empty" style="display:none"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../scripts/listComp.mjs"></script>
+</body>
+
+</html>

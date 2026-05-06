@@ -1,0 +1,303 @@
+/* =====================
+   LAYOUT
+   ===================== */
+.catalogo-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: 0 2rem;
+    align-items: start;
+}
+
+/* =====================
+   MAIN — HEADER
+   ===================== */
+.catalogo-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.catalogo-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(78,154,241,0.3);
+    border-radius: 3px;
+    padding: 3px 10px;
+    margin-bottom: 0.5rem;
+}
+
+.catalogo-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: -0.5px;
+}
+
+.catalogo-count {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.catalogo-count span:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1;
+}
+
+.catalogo-count-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+/* =====================
+   TABLA DE COMPONENTES
+   ===================== */
+#lista-componentes {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Mensaje de carga / error */
+#lista-componentes > p {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Fila de componente */
+.componente-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    transition: background 0.15s;
+}
+
+.componente-row:last-child {
+    border-bottom: none;
+}
+
+.componente-row:hover {
+    background: var(--bg3);
+}
+
+.componente-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.componente-nombre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-bright);
+}
+
+.componente-tipo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Botón agregar */
+.btn-agregar {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(78,154,241,0.35);
+    border-radius: 4px;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+}
+
+.btn-agregar:hover:not(:disabled) {
+    background: var(--accent);
+    color: #0e1117;
+}
+
+.btn-agregar:disabled {
+    color: var(--green);
+    background: var(--green-dim);
+    border-color: rgba(62,207,142,0.3);
+    cursor: default;
+}
+
+/* =====================
+   SIDEBAR — SELECCIONADOS
+   ===================== */
+.sidebar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    position: sticky;
+    top: 80px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+}
+
+.sidebar-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.sidebar-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(78,154,241,0.3);
+    border-radius: 10px;
+    padding: 2px 8px;
+    min-width: 24px;
+    text-align: center;
+}
+
+#lista-seleccionados {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-seleccionados li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+}
+
+#lista-seleccionados li:hover {
+    background: var(--bg3);
+}
+
+#lista-seleccionados li span {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+/* Botón quitar */
+.btn-quitar {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 3px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.btn-quitar:hover {
+    color: #f87171;
+    border-color: rgba(248,113,113,0.4);
+}
+
+.sidebar-empty {
+    padding: 1.5rem 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+.sidebar-check {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: #0e1117;
+    background: var(--accent);
+    border-top: 1px solid var(--border);
+    padding: 0.85rem;
+    transition: background 0.15s;
+}
+
+.sidebar-check:hover {
+    background: #6aaef5;
+}
+
+.sidebar-clear {
+    display: block;
+    width: 100%;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--border);
+    padding: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.15s, background 0.15s;
+}
+
+.sidebar-clear:hover {
+    color: #f87171;
+    background: rgba(248,113,113,0.05);
+}
+
+/* =====================
+   NAV ACTIVE STATE
+   ===================== */
+.nav-active {
+    color: var(--text-bright) !important;
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (max-width: 720px) {
+    .catalogo-layout {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: static;
+    }
+}

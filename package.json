@@ -2,10 +2,10 @@
   "name": "aplicaciones-web-2---trabajos-pr-cticos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.mjs",
   "scripts": {
-    "dev": "node --watch index.mjs",
-    "start": "node index.mjs"
+    "dev": "node --watch server.mjs",
+    "start": "node server.mjs"
   },
   "repository": {
     "type": "git",

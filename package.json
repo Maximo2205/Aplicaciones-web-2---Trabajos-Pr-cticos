@@ -1,5 +1,5 @@
 {
-  "name": "tp2-rehecho",
+  "name": "aplicaciones-web-2---trabajos-pr-cticos",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,10 +7,18 @@
     "dev": "node --watch index.mjs",
     "start": "node index.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maximo2205/Aplicaciones-web-2---Trabajos-Pr-cticos.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
+  "bugs": {
+    "url": "https://github.com/Maximo2205/Aplicaciones-web-2---Trabajos-Pr-cticos/issues"
+  },
+  "homepage": "https://github.com/Maximo2205/Aplicaciones-web-2---Trabajos-Pr-cticos#readme",
   "dependencies": {
     "express": "5.2.1"
   }

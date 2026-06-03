@@ -1,5 +1,6 @@
 import express from 'express'
 import * as controlador from './controlador.componentes.mjs'
+import { agregarComponente } from './modelo.componentes.mjs'
 
 const rutasComponentes = express.Router()
 
@@ -10,12 +11,12 @@ rutasComponentes.get('/componentes', controlador.obtenerComponentes)
 rutasComponentes.get('/componentes/:id', controlador.obtenerComponentePorId)
 
 //Post
-//rutasComponentes.post('/componentes')
+rutasComponentes.post('/componentes', controlador.agregarComponente)
 
 //Put
-//rutasComponentes.put('/componentes/:id')
+rutasComponentes.put('/componentes/:id', controlador.editarComponente)
 
 //Delete
-//rutasComponentes.delete('/componentes/:id')
+rutasComponentes.delete('/componentes/:id', controlador.borrarComponente)
 
 export default rutasComponentes

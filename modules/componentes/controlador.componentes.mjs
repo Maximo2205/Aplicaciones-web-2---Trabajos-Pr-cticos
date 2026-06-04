@@ -21,6 +21,5 @@ export async function editarComponente(req, res) {
 }
 
 export async function borrarComponente(req, res) {
-    const datos = req.body
-    const componentes = await modelo.agregarComponente(datos)
+    const componentes = await modelo.agregarComponente(req.params.id)
 }

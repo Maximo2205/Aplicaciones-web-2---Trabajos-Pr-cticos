@@ -6,8 +6,7 @@ export async function obtenerComponentes() {
 }
 
 export async function obtenerComponentePorId(id) {
-    const query = 'SELECT * FROM componentes where id = ' & id
-    const resultado = await pool.query(query)
+    const resultado = await pool.query('SELECT * FROM componentes where id = $1', [id])
     return resultado.rows
 }
 
@@ -23,8 +22,7 @@ export async function editarComponente(datos) {
     return resultado.rows
 }
 
-export async function borrarComponente(datos) {
-    const {id, category, name, cpuSocket, cpuChipset, ramDdr, coolerHeight, m2Format, m2Key, psuFormat, gpuPcie, gpuLenght, mbFormat} = datos
-    const resultado = await pool.query('', [category, name, cpuSocket, cpuChipset, ramDdr, coolerHeight, m2Format, m2Key, psuFormat, gpuPcie, gpuLenght, mbFormat])
+export async function borrarComponente(id) {
+    const resultado = await pool.query('DELETE FROM componentes where id = $1', [id])
     return resultado.rows
 }

@@ -1,14 +1,21 @@
-const URL_API = 'https://69f3f9acbd2396bf5310826e.mockapi.io/api/v1/componente';
+const URL_API = 'http://localhost:3000/api/v1/componentes';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 
-// Convierte "AM5, LGA1700" → ["AM5", "LGA1700"] o null si está vacío
-function parseCampo(valor) {
+// "AM5, LGA1700" → ["AM5", "LGA1700"]  |  "AM5" → "AM5"  |  null → null
+function stringAArray(valor) {
     if (!valor || !valor.trim()) return null;
     const partes = valor.split(',').map(v => v.trim()).filter(Boolean);
     if (partes.length === 0) return null;
     if (partes.length === 1) return partes[0];
     return partes;
+}
+
+// ["AM5", "LGA1700"] → "AM5, LGA1700"  |  "AM5" → "AM5"  |  null → null
+function arrayAString(valor) {
+    if (valor === null || valor === undefined) return null;
+    if (Array.isArray(valor)) return valor.join(', ');
+    return valor;
 }
 
 // Convierte campo a número o null
@@ -17,11 +24,32 @@ function parseNum(valor) {
     return isNaN(n) ? null : n;
 }
 
-// Convierte array/valor a string para mostrar en tabla
+// Convierte array/valor a string para mostrar en tabla o formulario
 function formatCelda(val) {
     if (val === null || val === undefined) return '—';
     if (Array.isArray(val)) return val.join(', ');
     return String(val);
+}
+
+// Campos que pueden tener múltiples valores separados por coma
+const CAMPOS_ARRAY = ['cpuSocket', 'cpuChipset', 'm2Format', 'psuFormat', 'mbFormat'];
+
+// Convierte todos los campos array de un componente a strings (para enviar a la API)
+function serializarComponente(datos) {
+    const resultado = { ...datos };
+    for (const campo of CAMPOS_ARRAY) {
+        resultado[campo] = arrayAString(resultado[campo]);
+    }
+    return resultado;
+}
+
+// Convierte todos los campos string de un componente a arrays (al recibir de la API)
+function parsearComponente(datos) {
+    const resultado = { ...datos };
+    for (const campo of CAMPOS_ARRAY) {
+        resultado[campo] = stringAArray(resultado[campo]);
+    }
+    return resultado;
 }
 
 // ─── API ─────────────────────────────────────────────────────────────────────
@@ -29,14 +57,15 @@ function formatCelda(val) {
 async function fetchTodos() {
     const res = await fetch(URL_API);
     if (!res.ok) throw new Error('Error al obtener componentes');
-    return res.json();
+    const componentes = await res.json();
+    return componentes.map(parsearComponente); // ← string → array al recibir
 }
 
 async function crearComponente(datos) {
     const res = await fetch(URL_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datos)
+        body: JSON.stringify(serializarComponente(datos)) // ← array → string al enviar
     });
     if (!res.ok) throw new Error('Error al crear componente');
     return res.json();
@@ -46,7 +75,7 @@ async function editarComponente(id, datos) {
     const res = await fetch(`${URL_API}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datos)
+        body: JSON.stringify(serializarComponente(datos)) // ← array → string al enviar
     });
     if (!res.ok) throw new Error('Error al editar componente');
     return res.json();
@@ -120,7 +149,7 @@ const modalOverlay = document.getElementById('modal-overlay');
 const modalTitle   = document.getElementById('modal-title');
 const btnGuardar   = document.getElementById('btn-guardar');
 
-let modoEdicion = null; // null = agregar, id = editar
+let modoEdicion = null;
 
 function abrirModalAgregar() {
     modoEdicion = null;
@@ -152,34 +181,36 @@ function limpiarForm() {
 }
 
 function cargarForm(c) {
+    // formatCelda maneja tanto arrays como strings correctamente
     document.getElementById('f-name').value         = c.name ?? '';
     document.getElementById('f-category').value     = c.category ?? '';
-    document.getElementById('f-cpuSocket').value    = formatCelda(c.cpuSocket).replace('—','');
-    document.getElementById('f-cpuChipset').value   = formatCelda(c.cpuChipset).replace('—','');
+    document.getElementById('f-cpuSocket').value    = formatCelda(c.cpuSocket).replace('—', '');
+    document.getElementById('f-cpuChipset').value   = formatCelda(c.cpuChipset).replace('—', '');
     document.getElementById('f-ramDdr').value       = c.ramDdr ?? '';
     document.getElementById('f-coolerHeight').value = c.coolerHeight ?? '';
-    document.getElementById('f-m2Format').value     = formatCelda(c.m2Format).replace('—','');
+    document.getElementById('f-m2Format').value     = formatCelda(c.m2Format).replace('—', '');
     document.getElementById('f-m2Key').value        = c.m2Key ?? '';
-    document.getElementById('f-psuFormat').value    = formatCelda(c.psuFormat).replace('—','');
+    document.getElementById('f-psuFormat').value    = formatCelda(c.psuFormat).replace('—', '');
     document.getElementById('f-gpuPcie').value      = c.gpuPcie ?? '';
     document.getElementById('f-gpuLenght').value    = c.gpuLenght ?? '';
-    document.getElementById('f-mbFormat').value     = formatCelda(c.mbFormat).replace('—','');
+    document.getElementById('f-mbFormat').value     = formatCelda(c.mbFormat).replace('—', '');
 }
 
 function leerForm() {
+    // stringAArray convierte el input del usuario en array o string según corresponda
     return {
         name:         document.getElementById('f-name').value.trim(),
         category:     document.getElementById('f-category').value,
-        cpuSocket:    parseCampo(document.getElementById('f-cpuSocket').value),
-        cpuChipset:   parseCampo(document.getElementById('f-cpuChipset').value),
+        cpuSocket:    stringAArray(document.getElementById('f-cpuSocket').value),
+        cpuChipset:   stringAArray(document.getElementById('f-cpuChipset').value),
         ramDdr:       parseNum(document.getElementById('f-ramDdr').value),
         coolerHeight: parseNum(document.getElementById('f-coolerHeight').value),
-        m2Format:     parseCampo(document.getElementById('f-m2Format').value),
-        m2Key:        parseCampo(document.getElementById('f-m2Key').value),
-        psuFormat:    parseCampo(document.getElementById('f-psuFormat').value),
+        m2Format:     stringAArray(document.getElementById('f-m2Format').value),
+        m2Key:        stringAArray(document.getElementById('f-m2Key').value),
+        psuFormat:    stringAArray(document.getElementById('f-psuFormat').value),
         gpuPcie:      parseNum(document.getElementById('f-gpuPcie').value),
         gpuLenght:    parseNum(document.getElementById('f-gpuLenght').value),
-        mbFormat:     parseCampo(document.getElementById('f-mbFormat').value),
+        mbFormat:     stringAArray(document.getElementById('f-mbFormat').value),
     };
 }
 
@@ -264,7 +295,6 @@ document.getElementById('confirm-ok').addEventListener('click', eliminar);
 document.getElementById('confirm-cancelar').addEventListener('click', cerrarConfirm);
 document.getElementById('confirm-close').addEventListener('click', cerrarConfirm);
 
-// Cerrar modales al clickear fuera
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
 confirmOverlay.addEventListener('click', (e) => { if (e.target === confirmOverlay) cerrarConfirm(); });
 

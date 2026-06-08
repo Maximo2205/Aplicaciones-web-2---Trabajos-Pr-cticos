@@ -1,4 +1,4 @@
-const url = 'https://69f3f9acbd2396bf5310826e.mockapi.io/api/v1/componente';
+const url = 'http://localhost:3000/api/v1/componentes' //'https://69f3f9acbd2396bf5310826e.mockapi.io/api/v1/componente';
 
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 

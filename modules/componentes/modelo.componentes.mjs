@@ -16,8 +16,8 @@ export async function agregarComponente(datos) {
     return resultado.rows
 }
 
-export async function editarComponente(datos) {
-    const {id, category, name, cpuSocket, cpuChipset, ramDdr, coolerHeight, m2Format, m2Key, psuFormat, gpuPcie, gpuLenght, mbFormat} = datos
+export async function editarComponente(id, datos) {
+    const {category, name, cpuSocket, cpuChipset, ramDdr, coolerHeight, m2Format, m2Key, psuFormat, gpuPcie, gpuLenght, mbFormat} = datos
     const resultado = await pool.query('UPDATE componentes SET category = $1, name = $2, cpuSocket = $3, cpuChipset = $4, ramDdr = $5, coolerHeight = $6, m2Format = $7, m2Key = $8, psuFormat = $9, gpuPcie = $10, gpuLenght = $11, mbFormat = $12 WHERE id = $13 RETURNING id', [category, name, cpuSocket, cpuChipset, ramDdr, coolerHeight, m2Format, m2Key, psuFormat, gpuPcie, gpuLenght, mbFormat, id])
     return resultado.rows[0]
 }

@@ -38,130 +38,130 @@ function checks(componentes) {
 
     // CPU ↔ Motherboard: socket
     if (cpu && mb) {
-        const ok = cpu.cpuSocket === mb.cpuSocket;
+        const ok = intersecta(cpu.cpusocket, mb.cpusocket);
         resultados.push({
             compA: cpu, compB: mb,
             caracteristica: 'Socket CPU',
-            valA: formatVal(cpu.cpuSocket),
-            valB: formatVal(mb.cpuSocket),
+            valA: formatVal(cpu.cpusocket),
+            valB: formatVal(mb.cpusocket),
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // CPU ↔ Motherboard: chipset
     if (cpu && mb) {
-        const ok = intersecta(cpu.cpuChipset, mb.cpuChipset);
+        const ok = intersecta(cpu.cpuchipset, mb.cpuchipset);
         resultados.push({
             compA: cpu, compB: mb,
             caracteristica: 'Chipset',
-            valA: formatVal(cpu.cpuChipset),
-            valB: formatVal(mb.cpuChipset),
+            valA: formatVal(cpu.cpuchipset),
+            valB: formatVal(mb.cpuchipset),
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Motherboard ↔ RAM: DDR
     if (mb && ram) {
-        const ok = mb.ramDdr === ram.ramDdr;
+        const ok = mb.ramddr === ram.ramddr;
         resultados.push({
             compA: mb, compB: ram,
             caracteristica: 'Generación DDR',
-            valA: `DDR${mb.ramDdr}`,
-            valB: `DDR${ram.ramDdr}`,
+            valA: `DDR${mb.ramddr}`,
+            valB: `DDR${ram.ramddr}`,
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Cooler ↔ CPU: socket soportado
     if (cooler && cpu) {
-        const ok = intersecta(cooler.cpuSocket, cpu.cpuSocket);
+        const ok = intersecta(cooler.cpusocket, cpu.cpusocket);
         resultados.push({
             compA: cooler, compB: cpu,
             caracteristica: 'Socket soportado',
-            valA: formatVal(cooler.cpuSocket),
-            valB: formatVal(cpu.cpuSocket),
+            valA: formatVal(cooler.cpusocket),
+            valB: formatVal(cpu.cpusocket),
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Chassis ↔ Cooler: altura
     if (chassis && cooler) {
-        const ok = cooler.coolerHeight <= chassis.coolerHeight;
+        const ok = cooler.coolerheight <= chassis.coolerheight;
         resultados.push({
             compA: chassis, compB: cooler,
             caracteristica: 'Altura cooler',
-            valA: `≤ ${chassis.coolerHeight} mm`,
-            valB: `${cooler.coolerHeight} mm`,
+            valA: `≤ ${chassis.coolerheight} mm`,
+            valB: `${cooler.coolerheight} mm`,
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Chassis ↔ Motherboard: factor de forma
     if (chassis && mb) {
-        const ok = intersecta(chassis.mbFormat, mb.mbFormat);
+        const ok = intersecta(chassis.mbformat, mb.mbformat);
         resultados.push({
             compA: chassis, compB: mb,
             caracteristica: 'Factor de forma MB',
-            valA: formatVal(chassis.mbFormat),
-            valB: formatVal(mb.mbFormat),
+            valA: formatVal(chassis.mbformat),
+            valB: formatVal(mb.mbformat),
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Chassis ↔ PSU: formato
     if (chassis && psu) {
-        const ok = intersecta(chassis.psuFormat, psu.psuFormat);
+        const ok = intersecta(chassis.psuformat, psu.psuformat);
         resultados.push({
             compA: chassis, compB: psu,
             caracteristica: 'Formato PSU',
-            valA: formatVal(chassis.psuFormat),
-            valB: formatVal(psu.psuFormat),
+            valA: formatVal(chassis.psuformat),
+            valB: formatVal(psu.psuformat),
             estado: ok ? 'ok' : 'error',
         });
     }
 
     // Chassis ↔ GPU: longitud
     if (chassis && gpu) {
-        const ok = gpu.gpuLenght <= chassis.gpuLenght;
-        const warn = !ok && gpu.gpuLenght <= chassis.gpuLenght + 20;
+        const ok = gpu.gpulenght <= chassis.gpulenght;
+        const warn = !ok && gpu.gpuLenght <= chassis.gpulenght + 20;
         resultados.push({
             compA: chassis, compB: gpu,
             caracteristica: 'Longitud GPU',
-            valA: `≤ ${chassis.gpuLenght} mm`,
-            valB: `${gpu.gpuLenght} mm`,
+            valA: `≤ ${chassis.gpulenght} mm`,
+            valB: `${gpu.gpulenght} mm`,
             estado: ok ? 'ok' : warn ? 'warn' : 'error',
         });
     }
 
     // Motherboard ↔ GPU: PCIe
     if (mb && gpu) {
-        const ok = mb.gpuPcie >= gpu.gpuPcie;
+        const ok = mb.gpupcie >= gpu.gpupcie;
         resultados.push({
             compA: mb, compB: gpu,
             caracteristica: 'PCIe versión',
-            valA: `PCIe ${mb.gpuPcie}`,
-            valB: `PCIe ${gpu.gpuPcie}`,
+            valA: `PCIe ${mb.gpupcie}`,
+            valB: `PCIe ${gpu.gpupcie}`,
             estado: ok ? 'ok' : 'warn',
         });
     }
 
     // Motherboard ↔ M2: formato y key
     if (mb && m2) {
-        const fmtOk = intersecta(mb.m2Format, m2.m2Format);
+        const fmtOk = intersecta(mb.m2format, m2.m2format);
         resultados.push({
             compA: mb, compB: m2,
             caracteristica: 'Formato M.2',
-            valA: formatVal(mb.m2Format),
-            valB: formatVal(m2.m2Format),
+            valA: formatVal(mb.m2format),
+            valB: formatVal(m2.m2format),
             estado: fmtOk ? 'ok' : 'error',
         });
 
-        const keyOk = mb.m2Key === m2.m2Key;
+        const keyOk = mb.m2key === m2.m2key;
         resultados.push({
             compA: mb, compB: m2,
             caracteristica: 'Key M.2',
-            valA: formatVal(mb.m2Key),
-            valB: formatVal(m2.m2Key),
+            valA: formatVal(mb.m2key),
+            valB: formatVal(m2.m2key),
             estado: keyOk ? 'ok' : 'error',
         });
     }

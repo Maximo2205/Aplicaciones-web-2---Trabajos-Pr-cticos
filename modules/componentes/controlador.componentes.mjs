@@ -13,13 +13,16 @@ export async function obtenerComponentePorId(req, res) {
 export async function agregarComponente(req, res) {
     const datos = req.body
     const componentes = await modelo.agregarComponente(datos)
+    res.status(201).json(componentes)
 }
 
 export async function editarComponente(req, res) {
     const datos = req.body
-    const componentes = await modelo.agregarComponente(datos)
+    const componentes = await modelo.editarComponente(req.params.id, datos)
+    res.status(200).json(componentes)
 }
 
 export async function borrarComponente(req, res) {
-    const componentes = await modelo.agregarComponente(req.params.id)
+    const componentes = await modelo.borrarComponente(req.params.id)
+    res.status(200).json(componentes)
 }

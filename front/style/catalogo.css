@@ -1,5 +1,5 @@
 /* =====================
-   LAYOUT
+   LAYOUT PRINCIPAL
    ===================== */
 .catalogo-layout {
     display: grid;
@@ -29,7 +29,7 @@
     text-transform: uppercase;
     color: var(--accent);
     background: var(--accent-dim);
-    border: 1px solid rgba(78,154,241,0.3);
+    border: 1px solid rgba(78, 154, 241, 0.3);
     border-radius: 3px;
     padding: 3px 10px;
     margin-bottom: 0.5rem;
@@ -65,69 +65,76 @@
 }
 
 /* =====================
-   TABLA DE COMPONENTES
+   TABLA / REJILLA DE COMPONENTES
    ===================== */
 #lista-componentes {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
+    display: grid;
+    /* Crea columnas automáticas de mínimo 240px; si hay espacio se ponen en paralelo */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
 }
 
 /* Mensaje de carga / error */
 #lista-componentes > p {
+    grid-column: 1 / -1; /* Ocupa todo el ancho si es un mensaje */
     padding: 2rem;
     text-align: center;
     color: var(--text-muted);
     font-size: 0.88rem;
     font-family: 'IBM Plex Mono', monospace;
-}
-
-/* Fila de componente */
-.componente-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
     background: var(--bg2);
-    transition: background 0.15s;
 }
 
-.componente-row:last-child {
-    border-bottom: none;
+/* Fila de componente (Rediseñada a Tarjeta Individual) */
+.componente-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg2);
+    transition: background 0.15s, transform 0.15s, border-color 0.15s;
 }
 
 .componente-row:hover {
     background: var(--bg3);
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
 }
 
 .componente-info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .componente-nombre {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-bright);
+    line-height: 1.4;
 }
 
 .componente-tipo {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
+    color: var(--accent);
+    letter-spacing: 0.8px;
     text-transform: uppercase;
 }
 
 .componente-acciones {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    align-items: center;
-    flex-shrink: 0;
+    width: 100%;
 }
+
+/* Botón Ver Detalle */
 .btn-ver-catalogo {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
@@ -135,28 +142,31 @@
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 0.4rem 0.85rem;
+    padding: 0.5rem;
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
     transition: color 0.15s, border-color 0.15s;
 }
+
 .btn-ver-catalogo:hover {
     color: var(--text-bright);
     border-color: var(--border-bright);
 }
 
-/* Botón agregar */
+/* Botón Agregar */
 .btn-agregar {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--accent);
     background: var(--accent-dim);
-    border: 1px solid rgba(78,154,241,0.35);
+    border: 1px solid rgba(78, 154, 241, 0.35);
     border-radius: 4px;
-    padding: 0.4rem 1rem;
+    padding: 0.5rem;
     cursor: pointer;
     white-space: nowrap;
+    text-align: center;
     transition: background 0.15s, color 0.15s;
 }
 
@@ -168,7 +178,7 @@
 .btn-agregar:disabled {
     color: var(--green);
     background: var(--green-dim);
-    border-color: rgba(62,207,142,0.3);
+    border-color: rgba(62, 207, 142, 0.3);
     cursor: default;
 }
 
@@ -208,7 +218,7 @@
     font-weight: 600;
     color: var(--accent);
     background: var(--accent-dim);
-    border: 1px solid rgba(78,154,241,0.3);
+    border: 1px solid rgba(78, 154, 241, 0.3);
     border-radius: 10px;
     padding: 2px 8px;
     min-width: 24px;
@@ -240,7 +250,7 @@
     line-height: 1.4;
 }
 
-/* Botón quitar */
+/* Botón quitar de la lista */
 .btn-quitar {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.68rem;
@@ -257,7 +267,7 @@
 
 .btn-quitar:hover {
     color: #f87171;
-    border-color: rgba(248,113,113,0.4);
+    border-color: rgba(248, 113, 113, 0.4);
 }
 
 .sidebar-empty {
@@ -303,24 +313,168 @@
 
 .sidebar-clear:hover {
     color: #f87171;
-    background: rgba(248,113,113,0.05);
+    background: rgba(248, 113, 113, 0.05);
 }
 
 /* =====================
-   NAV ACTIVE STATE
+   MODAL DETALLE (ESTILO FLOTANTE CENTRADO)
+   ===================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 12, 16, 0.8);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    
+    /* Manejo de estado oculto */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+/* Clase de activación que añade catalogo.mjs */
+.modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background: var(--bg2, #111827);
+    border: 1px solid var(--border, #1f2937);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-sm {
+    max-width: 520px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.detalle-modal-titulo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.modal-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--text-bright);
+}
+
+.modal-body {
+    padding: 1.25rem;
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+/* Rejilla interna para los campos técnicos */
+.detalle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.detalle-item {
+    background: var(--bg3, #1f2937);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detalle-item-vacio {
+    opacity: 0.35;
+}
+
+.detalle-item-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.detalle-item-valor {
+    font-size: 0.88rem;
+    color: var(--text-bright);
+    font-weight: 600;
+}
+
+.modal-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    background: var(--bg3);
+}
+
+.btn-secondary {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--border-bright);
+    color: var(--text-bright);
+}
+
+/* =====================
+   NAV ACTIVE STATE & RESPONSIVE
    ===================== */
 .nav-active {
     color: var(--text-bright) !important;
 }
 
-/* =====================
-   RESPONSIVE
-   ===================== */
 @media (max-width: 720px) {
     .catalogo-layout {
         grid-template-columns: 1fr;
     }
     .sidebar {
         position: static;
+    }
+    #lista-componentes {
+        grid-template-columns: 1fr; /* Una columna en teléfonos */
     }
 }

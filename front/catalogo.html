@@ -65,6 +65,25 @@
   </div>
 
   <script src="scripts/catalogo.mjs"></script>
+
+  <!-- Modal detalle -->
+  <div class="modal-overlay" id="detalle-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <div class="detalle-modal-titulo">
+          <span class="td-categoria" id="detalle-category"></span>
+          <span class="modal-title" id="detalle-name"></span>
+        </div>
+        <button class="modal-close" id="detalle-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="detalle-grid" id="detalle-grid"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="detalle-cerrar">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

@@ -7,10 +7,10 @@ function parseCampo(valor) {
     if (!valor || !valor.trim()) return null;
     const partes = valor.split(',').map(v => v.trim()).filter(Boolean);
     if (partes.length === 0) return null;
-    
+
     // Eliminamos la validación de (partes.length === 1)
     // De esta forma, si es "AM4", devolverá ["AM4"] (lo que PostgreSQL espera)
-    return partes; 
+    return partes;
 }
 
 // Convierte campo a número o null
@@ -31,6 +31,12 @@ function formatCelda(val) {
 async function fetchTodos() {
     const res = await fetch(URL_API);
     if (!res.ok) throw new Error('Error al obtener componentes');
+    return res.json();
+}
+
+async function fetchPorId(id) {
+    const res = await fetch(`${URL_API}/${id}`);
+    if (!res.ok) throw new Error('Error al obtener el componente');
     return res.json();
 }
 
@@ -103,6 +109,9 @@ function crearFila(c) {
         <td class="td-muted">${formatCelda(c.cpuchipset)}</td>
         <td class="td-muted">${c.ramddr ? `DDR${c.ramddr}` : '—'}</td>
         <td>
+            <button class="btn-ver">Ver</button>
+        </td>
+        <td>
             <div class="td-acciones">
                 <button class="btn-editar">Editar</button>
                 <button class="btn-borrar">Borrar</button>
@@ -110,6 +119,7 @@ function crearFila(c) {
         </td>
     `;
 
+    tr.querySelector('.btn-ver').addEventListener('click', () => abrirModalDetalle(c.id));
     tr.querySelector('.btn-editar').addEventListener('click', () => abrirModalEditar(c));
     tr.querySelector('.btn-borrar').addEventListener('click', () => abrirConfirm(c));
 
@@ -217,6 +227,61 @@ async function guardar() {
     }
 }
 
+// ─── MODAL DETALLE ───────────────────────────────────────────────────────────
+
+const detalleOverlay = document.getElementById('detalle-overlay');
+
+// Nombres de campo en minúscula tal como los devuelve PostgreSQL
+const LABELS = {
+    cpusocket:    'Socket CPU',
+    cpuchipset:   'Chipset',
+    ramddr:       'Generación DDR',
+    coolerheight: 'Altura cooler (mm)',
+    m2format:     'Formato M.2',
+    m2key:        'Key M.2',
+    psuformat:    'Formato PSU',
+    gpupcie:      'PCIe versión',
+    gpulenght:    'Longitud GPU (mm)',
+    mbformat:     'Factor de forma MB',
+};
+
+async function abrirModalDetalle(id) {
+    document.getElementById('detalle-name').textContent = 'Cargando...';
+    document.getElementById('detalle-category').textContent = '';
+    document.getElementById('detalle-grid').innerHTML = '';
+    detalleOverlay.classList.add('visible');
+
+    try {
+        const c = await fetchPorId(id);
+
+        document.getElementById('detalle-name').textContent     = c.name;
+        document.getElementById('detalle-category').textContent = c.category;
+
+        const grid = document.getElementById('detalle-grid');
+        grid.innerHTML = '';
+
+        for (const [campo, label] of Object.entries(LABELS)) {
+            const valor = c[campo];
+            const vacio = valor === null || valor === undefined;
+
+            const item = document.createElement('div');
+            item.className = `detalle-item${vacio ? ' detalle-item-vacio' : ''}`;
+            item.innerHTML = `
+                <span class="detalle-item-label">${label}</span>
+                <span class="detalle-item-valor">${vacio ? 'No aplica' : formatCelda(valor)}</span>
+            `;
+            grid.appendChild(item);
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('detalle-name').textContent = 'Error al cargar';
+    }
+}
+
+function cerrarModalDetalle() {
+    detalleOverlay.classList.remove('visible');
+}
+
 // ─── MODAL CONFIRMACIÓN BORRADO ──────────────────────────────────────────────
 
 const confirmOverlay = document.getElementById('confirm-overlay');
@@ -266,9 +331,13 @@ document.getElementById('confirm-ok').addEventListener('click', eliminar);
 document.getElementById('confirm-cancelar').addEventListener('click', cerrarConfirm);
 document.getElementById('confirm-close').addEventListener('click', cerrarConfirm);
 
+document.getElementById('detalle-close').addEventListener('click', cerrarModalDetalle);
+document.getElementById('detalle-cerrar').addEventListener('click', cerrarModalDetalle);
+
 // Cerrar modales al clickear fuera
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
 confirmOverlay.addEventListener('click', (e) => { if (e.target === confirmOverlay) cerrarConfirm(); });
+detalleOverlay.addEventListener('click', (e) => { if (e.target === detalleOverlay) cerrarModalDetalle(); });
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 cargarTabla();

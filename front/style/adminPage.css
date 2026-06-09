@@ -100,6 +100,22 @@
 .btn-danger:hover { background: #dc2626; }
 
 /* Botones de acción en la tabla */
+.btn-ver {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+.btn-ver:hover {
+    color: var(--text-bright);
+    border-color: var(--border-bright);
+}
+
 .btn-editar {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.7rem;

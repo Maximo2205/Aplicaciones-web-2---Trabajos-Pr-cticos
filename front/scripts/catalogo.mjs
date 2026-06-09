@@ -1,5 +1,12 @@
 const url = 'http://localhost:3000/api/v1/componentes' //'https://69f3f9acbd2396bf5310826e.mockapi.io/api/v1/componente';
 
+// --- HELPERS ---
+function formatCelda(val) {
+    if (val === null || val === undefined) return '—';
+    if (Array.isArray(val)) return val.join(', ');
+    return String(val);
+}
+
 // --- LOCALSTORAGE ---
 function obtenerSeleccionados() {
     const data = localStorage.getItem("componentesSeleccionados");
@@ -8,6 +15,13 @@ function obtenerSeleccionados() {
 
 function guardarSeleccionados(componentes) {
     localStorage.setItem("componentesSeleccionados", JSON.stringify(componentes));
+}
+
+// --- API ---
+async function fetchPorId(id) {
+    const res = await fetch(`${url}/${id}`);
+    if (!res.ok) throw new Error('Error al obtener el componente');
+    return res.json();
 }
 
 // --- FETCH ---
@@ -59,6 +73,14 @@ function cargarComponentes(componente) {
     tipo.className = "componente-tipo";
     tipo.textContent = componente.tipo ?? "Componente";
 
+    const acciones = document.createElement("div");
+    acciones.className = "componente-acciones";
+
+    const btnVer = document.createElement("button");
+    btnVer.className = "btn-ver-catalogo";
+    btnVer.textContent = "Ver detalle";
+    btnVer.addEventListener("click", () => abrirModalDetalle(componente.id));
+
     const btn = document.createElement("button");
     btn.className = "btn-agregar";
     btn.textContent = yaAgregado ? "Agregado ✓" : "Agregar";
@@ -67,8 +89,10 @@ function cargarComponentes(componente) {
 
     info.appendChild(nombre);
     info.appendChild(tipo);
+    acciones.appendChild(btnVer);
+    acciones.appendChild(btn);
     row.appendChild(info);
-    row.appendChild(btn);
+    row.appendChild(acciones);
     container.appendChild(row);
 }
 
@@ -137,7 +161,7 @@ function rehabilitarBoton(id) {
     const rows = document.querySelectorAll(".componente-row");
     rows.forEach(row => {
         if (row.dataset.id === String(id)) {
-            const btn = row.querySelector("button");
+            const btn = row.querySelector(".btn-agregar"); // ← corregido para no afectar btn-ver-catalogo
             btn.textContent = "Agregar";
             btn.disabled = false;
         }
@@ -153,7 +177,65 @@ function limpiarTodo() {
     });
 }
 
+// --- MODAL DETALLE ---
+const detalleOverlay = document.getElementById('detalle-overlay');
+
+// Nombres de campo en minúscula tal como los devuelve PostgreSQL
+const LABELS = {
+    cpusocket:    'Socket CPU',
+    cpuchipset:   'Chipset',
+    ramddr:       'Generación DDR',
+    coolerheight: 'Altura cooler (mm)',
+    m2format:     'Formato M.2',
+    m2key:        'Key M.2',
+    psuformat:    'Formato PSU',
+    gpupcie:      'PCIe versión',
+    gpulenght:    'Longitud GPU (mm)',
+    mbformat:     'Factor de forma MB',
+};
+
+async function abrirModalDetalle(id) {
+    document.getElementById('detalle-name').textContent = 'Cargando...';
+    document.getElementById('detalle-category').textContent = '';
+    document.getElementById('detalle-grid').innerHTML = '';
+    detalleOverlay.classList.add('visible');
+
+    try {
+        const c = await fetchPorId(id);
+
+        document.getElementById('detalle-name').textContent     = c.name;
+        document.getElementById('detalle-category').textContent = c.category;
+
+        const grid = document.getElementById('detalle-grid');
+        grid.innerHTML = '';
+
+        for (const [campo, label] of Object.entries(LABELS)) {
+            const valor = c[campo];
+            const vacio = valor === null || valor === undefined;
+
+            const item = document.createElement('div');
+            item.className = `detalle-item${vacio ? ' detalle-item-vacio' : ''}`;
+            item.innerHTML = `
+                <span class="detalle-item-label">${label}</span>
+                <span class="detalle-item-valor">${vacio ? 'No aplica' : formatCelda(valor)}</span>
+            `;
+            grid.appendChild(item);
+        }
+    } catch (error) {
+        console.error(error);
+        document.getElementById('detalle-name').textContent = 'Error al cargar';
+    }
+}
+
+function cerrarModalDetalle() {
+    detalleOverlay.classList.remove('visible');
+}
+
 // --- INIT ---
 document.getElementById("btn-limpiar").addEventListener("click", limpiarTodo);
+document.getElementById('detalle-close').addEventListener('click', cerrarModalDetalle);
+document.getElementById('detalle-cerrar').addEventListener('click', cerrarModalDetalle);
+detalleOverlay.addEventListener('click', (e) => { if (e.target === detalleOverlay) cerrarModalDetalle(); });
+
 traerComponentes();
 renderizarSeleccionados();

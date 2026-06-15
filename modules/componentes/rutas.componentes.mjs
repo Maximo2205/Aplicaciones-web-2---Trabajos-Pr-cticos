@@ -1,6 +1,5 @@
 import express from 'express'
 import * as controlador from './controlador.componentes.mjs'
-import { agregarComponente } from './modelo.componentes.mjs'
 
 const rutasComponentes = express.Router()
 

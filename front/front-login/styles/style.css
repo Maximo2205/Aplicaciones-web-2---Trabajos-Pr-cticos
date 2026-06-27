@@ -1,78 +1,216 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* =====================
+   VARIABLES Y RESET
+   (autocontenido para no depender de style.css)
+   ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg: #0e1117;
+    --bg2: #151b25;
+    --bg3: #1c2433;
+    --border: #2a3547;
+    --border-bright: #3d5070;
+    --accent: #4e9af1;
+    --accent-dim: #1e3a5c;
+    --text: #d4dce8;
+    --text-muted: #6b7e96;
+    --text-bright: #eaf2ff;
 }
 
 body {
-    background: #f5f6fa;
-    min-height: 100vh;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* =====================
+   LAYOUT
+   ===================== */
+.login-body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 59px,
+            var(--border) 59px,
+            var(--border) 60px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 59px,
+            var(--border) 59px,
+            var(--border) 60px
+        ),
+        var(--bg);
+    background-size: 60px 60px;
 }
 
-form {
-    background: #fff;
-    padding: 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem; /* Espaciado uniforme entre bloques */
-    min-width: 320px;
-}
-
-form h2 {
-    color: #2c3e50;
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.grupo-formulario {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem; /* Espaciado entre la palabra "Usuario" y su cuadro de texto */
-}
-
-label {
-    font-weight: bold;
-    color: #4b6584;
-    font-size: 0.9rem;
-}
-
-input[type='text'],
-input[type='password'] {
+.login-wrapper {
     width: 100%;
-    padding: 0.6rem;
-    border: 1px solid #ccd1d9;
-    border-radius: 4px;
-    font-size: 1rem;
-    outline: none;
+    max-width: 400px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* =====================
+   BRAND
+   ===================== */
+.login-brand {
+    text-align: center;
+}
+
+.logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.login-tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* =====================
+   CARD
+   ===================== */
+.login-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
     transition: border-color 0.2s;
 }
 
-/* Efecto visual cuando el usuario hace clic en el cuadro de texto */
-input[type='text']:focus,
-input[type='password']:focus {
-    border-color: #3498db;
+.login-card:focus-within {
+    border-color: var(--border-bright);
 }
 
-button[type='submit'] {
-    background: #3498db;
-    color: #fff;
-    border: none;
-    padding: 0.8rem;
+.login-card-header {
+    padding: 1.25rem 1.5rem 0;
+}
+
+.login-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(78,154,241,0.3);
+    border-radius: 3px;
+    padding: 3px 10px;
+    margin-bottom: 0.5rem;
+}
+
+.login-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: -0.3px;
+}
+
+/* =====================
+   FORM
+   ===================== */
+.login-form {
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.form-group input {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-bright);
+    background: var(--bg3);
+    border: 1px solid var(--border);
     border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
 }
 
-button[type='submit']:hover {
-    background: #217dbb;
+.form-group input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.form-group input:focus {
+    border-color: var(--accent);
+}
+
+/* =====================
+   BOTÓN
+   ===================== */
+.login-btn {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.7rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0e1117;
+    background: var(--accent);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.login-btn:hover { background: #6aaef5; }
+.login-btn:active { transform: scale(0.98); }
+
+/* =====================
+   LINKS DE NAVEGACIÓN
+   ===================== */
+.login-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.25rem;
+}
+
+.login-nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.login-nav a:hover {
+    color: var(--accent);
 }

@@ -8,7 +8,6 @@ export function comprobarToken(req, res, next) {
 
         jwt.verify(token, process.env.FIRMA_JWT, (error, payload) => {
             if (error) {
-                // El token expiró o fue manipulado
                 console.error(error)
                 return res.redirect('/login')
             }

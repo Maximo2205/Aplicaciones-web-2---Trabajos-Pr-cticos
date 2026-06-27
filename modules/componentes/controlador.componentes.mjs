@@ -6,7 +6,8 @@ export async function obtenerComponentes(req, res) {
         res.status(200).json(productos)
     }
     catch (error) {
-
+        console.error('Error al obtener los componentes:', error)
+        return res.status(500).json({ error: 'Error interno del servidor' })
     }
 }
 
@@ -16,7 +17,8 @@ export async function obtenerComponentePorId(req, res) {
         res.status(200).json(componente)
     }
     catch (error) {
-
+        console.error('Error al obtener el componente:', error)
+        return res.status(500).json({ error: 'Error interno del servidor' })
     }
 }
 
@@ -27,7 +29,8 @@ export async function agregarComponente(req, res) {
         res.status(201).json(componentes)
     }
     catch (error) {
-
+        console.error('Error al agregar el componente:', error)
+        return res.status(500).json({ error: 'Error interno del servidor' })
     }
 }
 
@@ -38,7 +41,8 @@ export async function editarComponente(req, res) {
         res.status(200).json(componentes)
     }
     catch (error) {
-
+        console.error('Error al editar el componente:', error)
+        return res.status(500).json({ error: 'Error interno del servidor' })
     }
 }
 
@@ -48,6 +52,7 @@ export async function borrarComponente(req, res) {
         res.status(200).json(componentes)
     }
     catch (error) {
-
+        console.error('Error al borrar el componente:', error)
+        return res.status(500).json({ error: 'Error interno del servidor' })
     }
 }

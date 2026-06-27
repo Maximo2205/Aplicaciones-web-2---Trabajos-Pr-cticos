@@ -4,26 +4,51 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Iniciar Sesión</title>
+    <title>chkCompatibility — Iniciar Sesión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
-<body>
-    <form id="form" action="/api/v1/autenticar" method="POST">
-        <h2>Identificación</h2>
-        
-        <div class="grupo-formulario">
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" required />
+<body class="login-body">
+
+    <div class="login-wrapper">
+
+        <div class="login-brand">
+            <div class="logo"><span>chk</span>Compatibility</div>
+            <p class="login-tagline">Verificá la compatibilidad de tu PC</p>
         </div>
-        
-        <div class="grupo-formulario">
-            <label for="pass">Contraseña:</label>
-            <input type="password" id="pass" name="pass" required />
+
+        <div class="login-card">
+            <div class="login-card-header">
+                <div class="login-badge">Acceso</div>
+                <h2 class="login-title">Identificación</h2>
+            </div>
+
+            <form id="form" action="/api/v1/autenticar" method="POST" class="login-form">
+
+                <div class="form-group">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Tu usuario" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="pass">Contraseña</label>
+                    <input type="password" id="pass" name="pass" placeholder="Tu contraseña" required />
+                </div>
+
+                <button type="submit" class="login-btn">Ingresar</button>
+
+            </form>
         </div>
-        
-        <button type="submit">Ingresar</button>
-    </form>
+
+        <nav class="login-nav">
+            <a href="/index.html">← Volver al inicio</a>
+            <a href="/catalogo.html">Ver catálogo</a>
+        </nav>
+
+    </div>
+
 </body>
 
 </html>

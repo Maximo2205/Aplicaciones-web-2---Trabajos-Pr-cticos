@@ -75,8 +75,9 @@
 }
 
 /* Mensaje de carga / error */
-#lista-componentes > p {
-    grid-column: 1 / -1; /* Ocupa todo el ancho si es un mensaje */
+#lista-componentes>p {
+    grid-column: 1 / -1;
+    /* Ocupa todo el ancho si es un mensaje */
     padding: 2rem;
     text-align: center;
     color: var(--text-muted);
@@ -331,7 +332,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    
+
     /* Manejo de estado oculto */
     opacity: 0;
     pointer-events: none;
@@ -471,10 +472,13 @@
     .catalogo-layout {
         grid-template-columns: 1fr;
     }
+
     .sidebar {
         position: static;
     }
+
     #lista-componentes {
-        grid-template-columns: 1fr; /* Una columna en teléfonos */
+        grid-template-columns: 1fr;
+        /* Una columna en teléfonos */
     }
 }

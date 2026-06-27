@@ -182,16 +182,16 @@ const detalleOverlay = document.getElementById('detalle-overlay');
 
 // Nombres de campo en minúscula tal como los devuelve PostgreSQL
 const LABELS = {
-    cpusocket:    'Socket CPU',
-    cpuchipset:   'Chipset',
-    ramddr:       'Generación DDR',
+    cpusocket: 'Socket CPU',
+    cpuchipset: 'Chipset',
+    ramddr: 'Generación DDR',
     coolerheight: 'Altura cooler (mm)',
-    m2format:     'Formato M.2',
-    m2key:        'Key M.2',
-    psuformat:    'Formato PSU',
-    gpupcie:      'PCIe versión',
-    gpulenght:    'Longitud GPU (mm)',
-    mbformat:     'Factor de forma MB',
+    m2format: 'Formato M.2',
+    m2key: 'Key M.2',
+    psuformat: 'Formato PSU',
+    gpupcie: 'PCIe versión',
+    gpulenght: 'Longitud GPU (mm)',
+    mbformat: 'Factor de forma MB',
 };
 
 async function abrirModalDetalle(id) {
@@ -203,7 +203,7 @@ async function abrirModalDetalle(id) {
     try {
         const c = await fetchPorId(id);
 
-        document.getElementById('detalle-name').textContent     = c.name;
+        document.getElementById('detalle-name').textContent = c.name;
         document.getElementById('detalle-category').textContent = c.category;
 
         const grid = document.getElementById('detalle-grid');

@@ -19,6 +19,7 @@ CREATE TABLE componentes (
 );
 
 -- Insertar 9 componentes
+
 INSERT INTO componentes (
     category,
     name,
@@ -125,3 +126,20 @@ INSERT INTO componentes (
  NULL,
  NULL,
  NULL);
+
+-- Crear la tabla
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(150) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    session_id VARCHAR(255) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Usuario: admin | Contraseña: admin123 (hash generado con bcrypt)
+INSERT INTO
+    usuarios (username, password_hash)
+VALUES (
+        'admin',
+        '$2a$12$vDSbDoJ8eN/Es.ayoOzo5.8SqY.PBKCs3CiJHWV27b2DwXbZhlw36'
+    );

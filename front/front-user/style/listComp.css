@@ -68,7 +68,7 @@
     align-items: center;
     gap: 2px;
     background: var(--green-dim);
-    border: 1px solid rgba(62,207,142,0.25);
+    border: 1px solid rgba(62, 207, 142, 0.25);
     border-radius: 6px;
     padding: 0.6rem 1.1rem;
     min-width: 70px;
@@ -84,7 +84,7 @@
 
 .stat-pill-error {
     background: var(--red-dim);
-    border-color: rgba(248,113,113,0.25);
+    border-color: rgba(248, 113, 113, 0.25);
 }
 
 .stat-pill-error span:first-child {
@@ -93,7 +93,7 @@
 
 .stat-pill-warn {
     background: var(--yellow-dim);
-    border-color: rgba(251,191,36,0.25);
+    border-color: rgba(251, 191, 36, 0.25);
 }
 
 .stat-pill-warn span:first-child {
@@ -255,7 +255,7 @@
     font-weight: 600;
     color: var(--green);
     background: var(--green-dim);
-    border: 1px solid rgba(62,207,142,0.25);
+    border: 1px solid rgba(62, 207, 142, 0.25);
     border-radius: 4px;
     padding: 3px 10px;
     white-space: nowrap;
@@ -270,7 +270,7 @@
     font-weight: 600;
     color: var(--red);
     background: var(--red-dim);
-    border: 1px solid rgba(248,113,113,0.25);
+    border: 1px solid rgba(248, 113, 113, 0.25);
     border-radius: 4px;
     padding: 3px 10px;
     white-space: nowrap;
@@ -285,7 +285,7 @@
     font-weight: 600;
     color: var(--yellow);
     background: var(--yellow-dim);
-    border: 1px solid rgba(251,191,36,0.25);
+    border: 1px solid rgba(251, 191, 36, 0.25);
     border-radius: 4px;
     padding: 3px 10px;
     white-space: nowrap;
@@ -293,19 +293,19 @@
 
 /* Highlight de filas con error */
 .tabla-compat tbody tr.row-error {
-    background: rgba(248,113,113,0.04);
+    background: rgba(248, 113, 113, 0.04);
 }
 
 .tabla-compat tbody tr.row-error:hover {
-    background: rgba(248,113,113,0.08);
+    background: rgba(248, 113, 113, 0.08);
 }
 
 .tabla-compat tbody tr.row-warn {
-    background: rgba(251,191,36,0.03);
+    background: rgba(251, 191, 36, 0.03);
 }
 
 .tabla-compat tbody tr.row-warn:hover {
-    background: rgba(251,191,36,0.07);
+    background: rgba(251, 191, 36, 0.07);
 }
 
 /* Estado vacío */

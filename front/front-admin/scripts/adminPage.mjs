@@ -129,8 +129,8 @@ function crearFila(c) {
 // ─── MODAL AGREGAR / EDITAR ──────────────────────────────────────────────────
 
 const modalOverlay = document.getElementById('modal-overlay');
-const modalTitle   = document.getElementById('modal-title');
-const btnGuardar   = document.getElementById('btn-guardar');
+const modalTitle = document.getElementById('modal-title');
+const btnGuardar = document.getElementById('btn-guardar');
 
 let modoEdicion = null; // null = agregar, id = editar
 
@@ -156,42 +156,42 @@ function cerrarModal() {
 }
 
 function limpiarForm() {
-    ['f-name','f-category','f-cpuSocket','f-cpuChipset','f-ramDdr',
-     'f-coolerHeight','f-m2Format','f-m2Key','f-psuFormat',
-     'f-gpuPcie','f-gpuLenght','f-mbFormat'].forEach(id => {
-        document.getElementById(id).value = '';
-    });
+    ['f-name', 'f-category', 'f-cpuSocket', 'f-cpuChipset', 'f-ramDdr',
+        'f-coolerHeight', 'f-m2Format', 'f-m2Key', 'f-psuFormat',
+        'f-gpuPcie', 'f-gpuLenght', 'f-mbFormat'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
 }
 
 function cargarForm(c) {
-    document.getElementById('f-name').value         = c.name ?? '';
-    document.getElementById('f-category').value     = c.category ?? '';
-    document.getElementById('f-cpuSocket').value    = formatCelda(c.cpusocket).replace('—','');
-    document.getElementById('f-cpuChipset').value   = formatCelda(c.cpuchipset).replace('—','');
-    document.getElementById('f-ramDdr').value       = c.ramddr ?? '';
+    document.getElementById('f-name').value = c.name ?? '';
+    document.getElementById('f-category').value = c.category ?? '';
+    document.getElementById('f-cpuSocket').value = formatCelda(c.cpusocket).replace('—', '');
+    document.getElementById('f-cpuChipset').value = formatCelda(c.cpuchipset).replace('—', '');
+    document.getElementById('f-ramDdr').value = c.ramddr ?? '';
     document.getElementById('f-coolerHeight').value = c.coolerheight ?? '';
-    document.getElementById('f-m2Format').value     = formatCelda(c.m2format).replace('—','');
-    document.getElementById('f-m2Key').value        = c.m2key ?? '';
-    document.getElementById('f-psuFormat').value    = formatCelda(c.psuformat).replace('—','');
-    document.getElementById('f-gpuPcie').value      = c.gpupcie ?? '';
-    document.getElementById('f-gpuLenght').value    = c.gpulenght ?? '';
-    document.getElementById('f-mbFormat').value     = formatCelda(c.mbformat).replace('—','');
+    document.getElementById('f-m2Format').value = formatCelda(c.m2format).replace('—', '');
+    document.getElementById('f-m2Key').value = c.m2key ?? '';
+    document.getElementById('f-psuFormat').value = formatCelda(c.psuformat).replace('—', '');
+    document.getElementById('f-gpuPcie').value = c.gpupcie ?? '';
+    document.getElementById('f-gpuLenght').value = c.gpulenght ?? '';
+    document.getElementById('f-mbFormat').value = formatCelda(c.mbformat).replace('—', '');
 }
 
 function leerForm() {
     return {
-        name:         document.getElementById('f-name').value.trim(),
-        category:     document.getElementById('f-category').value,
-        cpuSocket:    parseCampo(document.getElementById('f-cpuSocket').value),
-        cpuChipset:   parseCampo(document.getElementById('f-cpuChipset').value),
-        ramDdr:       parseNum(document.getElementById('f-ramDdr').value),
+        name: document.getElementById('f-name').value.trim(),
+        category: document.getElementById('f-category').value,
+        cpuSocket: parseCampo(document.getElementById('f-cpuSocket').value),
+        cpuChipset: parseCampo(document.getElementById('f-cpuChipset').value),
+        ramDdr: parseNum(document.getElementById('f-ramDdr').value),
         coolerHeight: parseNum(document.getElementById('f-coolerHeight').value),
-        m2Format:     parseCampo(document.getElementById('f-m2Format').value),
-        m2Key:        parseCampo(document.getElementById('f-m2Key').value),
-        psuFormat:    parseCampo(document.getElementById('f-psuFormat').value),
-        gpuPcie:      parseNum(document.getElementById('f-gpuPcie').value),
-        gpuLenght:    parseNum(document.getElementById('f-gpuLenght').value),
-        mbFormat:     parseCampo(document.getElementById('f-mbFormat').value),
+        m2Format: parseCampo(document.getElementById('f-m2Format').value),
+        m2Key: parseCampo(document.getElementById('f-m2Key').value),
+        psuFormat: parseCampo(document.getElementById('f-psuFormat').value),
+        gpuPcie: parseNum(document.getElementById('f-gpuPcie').value),
+        gpuLenght: parseNum(document.getElementById('f-gpuLenght').value),
+        mbFormat: parseCampo(document.getElementById('f-mbFormat').value),
     };
 }
 
@@ -233,16 +233,16 @@ const detalleOverlay = document.getElementById('detalle-overlay');
 
 // Nombres de campo en minúscula tal como los devuelve PostgreSQL
 const LABELS = {
-    cpusocket:    'Socket CPU',
-    cpuchipset:   'Chipset',
-    ramddr:       'Generación DDR',
+    cpusocket: 'Socket CPU',
+    cpuchipset: 'Chipset',
+    ramddr: 'Generación DDR',
     coolerheight: 'Altura cooler (mm)',
-    m2format:     'Formato M.2',
-    m2key:        'Key M.2',
-    psuformat:    'Formato PSU',
-    gpupcie:      'PCIe versión',
-    gpulenght:    'Longitud GPU (mm)',
-    mbformat:     'Factor de forma MB',
+    m2format: 'Formato M.2',
+    m2key: 'Key M.2',
+    psuformat: 'Formato PSU',
+    gpupcie: 'PCIe versión',
+    gpulenght: 'Longitud GPU (mm)',
+    mbformat: 'Factor de forma MB',
 };
 
 async function abrirModalDetalle(id) {
@@ -254,7 +254,7 @@ async function abrirModalDetalle(id) {
     try {
         const c = await fetchPorId(id);
 
-        document.getElementById('detalle-name').textContent     = c.name;
+        document.getElementById('detalle-name').textContent = c.name;
         document.getElementById('detalle-category').textContent = c.category;
 
         const grid = document.getElementById('detalle-grid');
@@ -285,8 +285,8 @@ function cerrarModalDetalle() {
 // ─── MODAL CONFIRMACIÓN BORRADO ──────────────────────────────────────────────
 
 const confirmOverlay = document.getElementById('confirm-overlay');
-const confirmNombre  = document.getElementById('confirm-nombre');
-const confirmOk      = document.getElementById('confirm-ok');
+const confirmNombre = document.getElementById('confirm-nombre');
+const confirmOk = document.getElementById('confirm-ok');
 
 let idAEliminar = null;
 

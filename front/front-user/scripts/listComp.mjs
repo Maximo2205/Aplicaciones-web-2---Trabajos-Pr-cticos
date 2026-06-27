@@ -27,14 +27,14 @@ function checks(componentes) {
 
     const por = (cat) => componentes.find(c => c.category === cat);
 
-    const cpu      = por('cpu');
-    const mb       = por('motherboard');
-    const ram      = por('ram');
-    const cooler   = por('cpuCooler');
-    const m2       = por('M2');
-    const chassis  = por('chassis');
-    const psu      = por('psu');
-    const gpu      = por('gpu');
+    const cpu = por('cpu');
+    const mb = por('motherboard');
+    const ram = por('ram');
+    const cooler = por('cpuCooler');
+    const m2 = por('M2');
+    const chassis = por('chassis');
+    const psu = por('psu');
+    const gpu = por('gpu');
 
     // CPU ↔ Motherboard: socket
     if (cpu && mb) {
@@ -210,13 +210,13 @@ function renderTabla(resultados) {
     for (const r of resultados) {
         const tr = document.createElement('tr');
         if (r.estado === 'error') tr.classList.add('row-error');
-        if (r.estado === 'warn')  tr.classList.add('row-warn');
+        if (r.estado === 'warn') tr.classList.add('row-warn');
 
         const badge = r.estado === 'ok'
             ? `<span class="badge-ok">✓ Compatible</span>`
             : r.estado === 'warn'
-            ? `<span class="badge-warn">⚠ Aviso</span>`
-            : `<span class="badge-error">✗ Incompatible</span>`;
+                ? `<span class="badge-warn">⚠ Aviso</span>`
+                : `<span class="badge-error">✗ Incompatible</span>`;
 
         tr.innerHTML = `
             <td class="td-valor td-nombre">
@@ -237,40 +237,40 @@ function renderTabla(resultados) {
 }
 
 function renderSummary(resultados, componentes) {
-    const iconEl    = document.getElementById('summary-icon');
-    const tituloEl  = document.getElementById('summary-titulo');
-    const subEl     = document.getElementById('summary-subtitulo');
-    const okEl      = document.getElementById('count-ok');
-    const errEl     = document.getElementById('count-error');
-    const warnEl    = document.getElementById('count-warn');
+    const iconEl = document.getElementById('summary-icon');
+    const tituloEl = document.getElementById('summary-titulo');
+    const subEl = document.getElementById('summary-subtitulo');
+    const okEl = document.getElementById('count-ok');
+    const errEl = document.getElementById('count-error');
+    const warnEl = document.getElementById('count-warn');
 
-    const ok    = resultados.filter(r => r.estado === 'ok').length;
-    const err   = resultados.filter(r => r.estado === 'error').length;
-    const warn  = resultados.filter(r => r.estado === 'warn').length;
+    const ok = resultados.filter(r => r.estado === 'ok').length;
+    const err = resultados.filter(r => r.estado === 'error').length;
+    const warn = resultados.filter(r => r.estado === 'warn').length;
 
-    okEl.textContent   = ok;
-    errEl.textContent  = err;
+    okEl.textContent = ok;
+    errEl.textContent = err;
     warnEl.textContent = warn;
 
     if (resultados.length === 0) {
-        iconEl.textContent  = '🔍';
+        iconEl.textContent = '🔍';
         tituloEl.textContent = 'Sin datos suficientes';
-        subEl.textContent   = 'Seleccioná componentes en el catálogo para analizar';
+        subEl.textContent = 'Seleccioná componentes en el catálogo para analizar';
     } else if (err > 0) {
-        iconEl.textContent  = '✗';
-        iconEl.style.color  = 'var(--red)';
+        iconEl.textContent = '✗';
+        iconEl.style.color = 'var(--red)';
         tituloEl.textContent = `${err} incompatibilidad${err > 1 ? 'es' : ''} encontrada${err > 1 ? 's' : ''}`;
-        subEl.textContent   = `Revisá los conflictos antes de comprar los componentes`;
+        subEl.textContent = `Revisá los conflictos antes de comprar los componentes`;
     } else if (warn > 0) {
-        iconEl.textContent  = '⚠';
-        iconEl.style.color  = 'var(--yellow)';
+        iconEl.textContent = '⚠';
+        iconEl.style.color = 'var(--yellow)';
         tituloEl.textContent = `${warn} aviso${warn > 1 ? 's' : ''} — verificar antes de comprar`;
-        subEl.textContent   = `Los componentes son mayormente compatibles, con algunos puntos a revisar`;
+        subEl.textContent = `Los componentes son mayormente compatibles, con algunos puntos a revisar`;
     } else {
-        iconEl.textContent  = '✓';
-        iconEl.style.color  = 'var(--green)';
+        iconEl.textContent = '✓';
+        iconEl.style.color = 'var(--green)';
         tituloEl.textContent = '¡Todos los componentes son compatibles!';
-        subEl.textContent   = `${componentes.length} componentes analizados sin conflictos`;
+        subEl.textContent = `${componentes.length} componentes analizados sin conflictos`;
     }
 }
 

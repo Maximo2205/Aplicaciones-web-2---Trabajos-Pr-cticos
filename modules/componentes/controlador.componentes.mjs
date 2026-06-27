@@ -1,28 +1,53 @@
 import * as modelo from './modelo.componentes.mjs'
 
 export async function obtenerComponentes(req, res) {
-    const productos = await modelo.obtenerComponentes()
-    res.status(200).json(productos)
+    try {
+        const productos = await modelo.obtenerComponentes()
+        res.status(200).json(productos)
+    }
+    catch (error) {
+
+    }
 }
 
 export async function obtenerComponentePorId(req, res) {
-    const componente = await modelo.obtenerComponentePorId(req.params.id)
-    res.status(200).json(componente)
+    try {
+        const componente = await modelo.obtenerComponentePorId(req.params.id)
+        res.status(200).json(componente)
+    }
+    catch (error) {
+
+    }
 }
 
 export async function agregarComponente(req, res) {
-    const datos = req.body
-    const componentes = await modelo.agregarComponente(datos)
-    res.status(201).json(componentes)
+    try {
+        const datos = req.body
+        const componentes = await modelo.agregarComponente(datos)
+        res.status(201).json(componentes)
+    }
+    catch (error) {
+
+    }
 }
 
 export async function editarComponente(req, res) {
-    const datos = req.body
-    const componentes = await modelo.editarComponente(req.params.id, datos)
-    res.status(200).json(componentes)
+    try {
+        const datos = req.body
+        const componentes = await modelo.editarComponente(req.params.id, datos)
+        res.status(200).json(componentes)
+    }
+    catch (error) {
+
+    }
 }
 
 export async function borrarComponente(req, res) {
-    const componentes = await modelo.borrarComponente(req.params.id)
-    res.status(200).json(componentes)
+    try {
+        const componentes = await modelo.borrarComponente(req.params.id)
+        res.status(200).json(componentes)
+    }
+    catch (error) {
+
+    }
 }

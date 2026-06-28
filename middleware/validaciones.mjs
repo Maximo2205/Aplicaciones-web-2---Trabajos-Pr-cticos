@@ -1,3 +1,6 @@
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken'
+
 export function comprobarToken(req, res, next) {
     try {
         const token = req.signedCookies['token']

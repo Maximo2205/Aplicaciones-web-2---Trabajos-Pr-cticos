@@ -49,6 +49,27 @@
 }
 
 /* =====================
+   BOTÓN CERRAR SESIÓN
+   ===================== */
+.btn-logout {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--red);
+    background: var(--red-dim);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 4px;
+    padding: 4px 12px;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+
+.btn-logout:hover {
+    background: rgba(248, 113, 113, 0.2);
+    color: #fff;
+}
+
+/* =====================
    BOTONES
    ===================== */
 .btn-primary {

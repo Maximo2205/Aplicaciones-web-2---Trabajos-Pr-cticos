@@ -3,9 +3,8 @@ tendria que crear middlewares para validar datos entrantes
 
 Frontend
 ver de limitar los datos en el form del crud que no sea de un tipo distinto ni supere el limite en la base de dato (varchar(25), no puede tener mas de 25 caracteres) (int, no puede tener letras)
-modificar que el boton de pagina admin en la landing chequee que tenga la cookie y lo mande a admin, sino que lo redirija a login
-agregar boton cerrar sesion
 
+IMPORTANTISIMO
 TESTEAR QUE TODO FUNQUE CORRECTAMENTE!!!!
 
 

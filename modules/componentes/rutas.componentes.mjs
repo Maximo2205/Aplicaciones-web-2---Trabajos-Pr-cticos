@@ -5,10 +5,10 @@ import * as validaciones from '../../middleware/validaciones.mjs'
 const rutasComponentes = express.Router()
 
 //Get
-rutasComponentes.get('/componentes', validaciones.comprobarToken, controlador.obtenerComponentes)
+rutasComponentes.get('/componentes', controlador.obtenerComponentes)
 
 //Get
-rutasComponentes.get('/componentes/:id', validaciones.comprobarToken, controlador.obtenerComponentePorId)
+rutasComponentes.get('/componentes/:id', controlador.obtenerComponentePorId)
 
 //Post
 rutasComponentes.post('/componentes', validaciones.comprobarToken, validaciones.validarDatosComponente, controlador.agregarComponente)
